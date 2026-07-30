@@ -81,3 +81,4 @@ function clearAllList() {
 
 // this code has written in class
 console.log("Hello World");
+console.log("Hello World 2");
