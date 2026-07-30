@@ -77,3 +77,6 @@ function clearAllList() {
     console.log(tasks);
     displayTask();
 }
+
+
+// this code has written in class
