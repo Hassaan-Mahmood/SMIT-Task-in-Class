@@ -326,6 +326,7 @@ body {
   line-height: 1.4;
   color: var(--text);
   word-break: break-word;
+  text-transform: capitalize;
 }
 
 /* row actions */
