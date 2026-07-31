@@ -1,25 +1,34 @@
+// Global variables
 var input = document.getElementById("new-task");
 var list = document.getElementById("todoList");
+var listLabel = document.getElementById("listLabel");
 var addBtnText = document.getElementById("addBtnText");
 var editIndex = -1;
+var count = 0;
 var tasks = [];
 
 // ===================== Add Task Function ====================== //
 function addTask() {
   var userInput = input.value.trim();
+
+  // one space or more than one space are not allowed
   if (userInput === "") return;
 
-  if (editIndex === -1){
+  // For adding new task
+  if (editIndex === -1) {
     tasks.push(userInput);
-  } else {
+  }
+  // For updating the selected task
+  else {
     tasks[editIndex] = userInput;
+    // changed values to previous
     editIndex = -1;
     addBtnText.innerHTML = `Add`;
   }
 
+  // Data save into localstorage
   localStorage.setItem("todos", JSON.stringify(tasks));
 
-  // listNumber()
   displayTask();
 }
 
@@ -29,16 +38,21 @@ function displayTask() {
   input.value = "";
   input.focus();
 
+  // Getting data from localstorage
   var data = localStorage.getItem("todos");
-
   if (data !== null) {
-    var parseData = JSON.parse(data);
-    tasks = parseData;
+    tasks = JSON.parse(data);
   }
 
+  // Shows the number of list
+  count = tasks.length;
+  listCount();
+
+  // This loop is running on tasks array
+  var listHtml = "";
   for (let i = 0; i < tasks.length; i++) {
     var item = tasks[i];
-    list.innerHTML += `
+    listHtml += `
         <li class="todo">
             <span class="todo__text">${item}</span>
             <div class="todo__actions">
@@ -65,24 +79,27 @@ function displayTask() {
         </li>
     `;
   }
+  list.innerHTML = listHtml;
 }
 
 // ===================== Delete Task Function ====================== //
 function deleteTask(index) {
   console.log(index);
   tasks.splice(index, 1);
+  count--;
   localStorage.setItem("todos", JSON.stringify(tasks));
   displayTask();
 }
 
 // ===================== Clear ALl Tasks Function ====================== //
 function clearAll() {
-  var removeAll = localStorage.removeItem("todos");
+  localStorage.removeItem("todos");
   tasks = [];
+  count = 0;
   displayTask();
 }
 
-// ===================== Clear ALl Tasks Function ====================== //
+// ===================== Reset Input Field Function ====================== //
 function resetInput() {
   input.value = "";
   input.focus();
@@ -93,8 +110,17 @@ function editTask(index) {
   editIndex = index;
   input.value = tasks[index];
   input.focus();
+  // change the name of add button to update
   addBtnText.innerHTML = `Update`;
+}
 
+// ===================== List Count Function ====================== //
+function listCount() {
+  if (count <= 1) {
+    listLabel.innerHTML = `${count} Task`;
+  } else {
+    listLabel.innerHTML = `${count} Tasks`;
+  }
 }
 
 displayTask();

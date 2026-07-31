@@ -4,7 +4,8 @@
 
 :root {
   /* surfaces */
-  --bg: #f4f6fb;
+  /* --bg: #f4f6fb; */
+  --bg: #391F74;
   --card: #ffffff;
   --surface: #f7f8fc;
   --surface-hover: #f0f2f9;
