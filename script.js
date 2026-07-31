@@ -1,5 +1,6 @@
 console.log("Hello World");
-console.log("Hello World");
+console.log("Hello World 2");
+
 var input = document.getElementById("new-task");
 var list = document.getElementById("todoList");
 var addBtnText = document.getElementById("addBtnText");
